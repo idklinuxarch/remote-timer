@@ -7,14 +7,12 @@
 
 <h1>🎮 Remote Timer Control</h1>
 
-<!-- MAIN CONTROLS -->
 <button onclick="send('start')">▶ Start</button>
 <button onclick="send('stop')">⏹ Stop</button>
 <button onclick="send('reset')">🔄 Reset</button>
 
 <hr>
 
-<!-- ADD TIME -->
 <h2>➕ Add Time</h2>
 
 <button onclick="addTime(10)">+10 sec</button>
@@ -22,9 +20,14 @@
 <button onclick="addTime(300)">+5 min</button>
 
 <script>
+const KEY = "Oxford123"; // must match app.py
+
 function send(action) {
     fetch(`/api/${action}`, {
-        method: "POST"
+        method: "POST",
+        headers: {
+            "key": KEY
+        }
     });
 }
 
@@ -32,7 +35,8 @@ function addTime(seconds) {
     fetch("/api/add", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "key": KEY
         },
         body: JSON.stringify({ seconds: seconds })
     });
