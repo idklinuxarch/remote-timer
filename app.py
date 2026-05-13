@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-# 🔒 CHANGE THIS PASSWORD
+# 🔒 CHANGE THIS PASSWOR
 SECRET_KEY = "Oxford123"
 
 timer_state = {
