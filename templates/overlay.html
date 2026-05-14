@@ -20,16 +20,16 @@
 
 <script>
 async function updateTimer() {
-    const response = await fetch("/api/state");
-    const data = await response.json();
+    try {
+        const response = await fetch(window.location.origin + "/api/state");
+        const data = await response.json();
 
-    document.getElementById("timer").innerText = data.seconds;
+        document.getElementById("timer").innerText = data.seconds;
+    } catch (err) {
+        console.log("Overlay error:", err);
+    }
 }
 
 setInterval(updateTimer, 1000);
-
 updateTimer();
 </script>
-
-</body>
-</html>
