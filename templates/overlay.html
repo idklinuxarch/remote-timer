@@ -2,25 +2,33 @@
 <html>
 <head>
     <title>Overlay</title>
-</head>
-<body style="background: transparent; color: white; font-size: 60px;">
 
-<div id="timer">0:00</div>
+    <style>
+        body {
+            background: transparent;
+            color: white;
+            font-size: 80px;
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="timer">0</div>
 
 <script>
-function formatTime(total) {
-    const min = Math.floor(total / 60);
-    const sec = total % 60;
-    return `${min}:${sec.toString().padStart(2, "0")}`;
+async function updateTimer() {
+    const response = await fetch("/api/state");
+    const data = await response.json();
+
+    document.getElementById("timer").innerText = data.seconds;
 }
 
-setInterval(async () => {
-    const res = await fetch("/api/state");
-    const data = await res.json();
+setInterval(updateTimer, 1000);
 
-    document.getElementById("timer").innerText =
-        formatTime(data.seconds);
-}, 500);
+updateTimer();
 </script>
 
 </body>
