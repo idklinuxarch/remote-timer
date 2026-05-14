@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timer Control</title>
+</head>
+<body>
 
+<h1>🎮 Remote Timer Control</h1>
+
+<button onclick="send('start')">▶ Start</button>
+<button onclick="send('stop')">⏹ Stop</button>
+<button onclick="send('reset')">🔄 Reset</button>
+
+<hr>
+
+<h2>➕ Add Time</h2>
+
+<button onclick="addTime(10)">+10 sec</button>
+<button onclick="addTime(60)">+1 min</button>
+<button onclick="addTime(300)">+5 min</button>
+
+<script>
+const KEY = "Oxford123"; // must match app.
+
+function send(action) {
+    fetch(`/api/${action}`, {
+        method: "POST",
+        headers: {
+            "key": KEY
+        }
+    });
+}
+
+function addTime(seconds) {
+    fetch("/api/add", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "key": KEY
+        },
+        body: JSON.stringify({ seconds: seconds })
+    });
+}
+</script>
+
+</body>
+</html>
